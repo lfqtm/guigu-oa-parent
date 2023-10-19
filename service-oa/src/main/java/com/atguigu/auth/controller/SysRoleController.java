@@ -4,6 +4,7 @@ import com.atguigu.auth.service.SysRoleService;
 import com.atguigu.common.config.exception.GuiguException;
 import com.atguigu.common.result.Result;
 import com.atguigu.model.system.SysRole;
+import com.atguigu.vo.system.AssginRoleVo;
 import com.atguigu.vo.system.SysRoleQueryVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags = "角色管理")
 @RestController
@@ -101,6 +103,20 @@ public class SysRoleController {
     @DeleteMapping("batchRemove")
     public Result batchRemove(@RequestBody List<Long> idList) {
         sysRoleService.removeByIds(idList);
+        return Result.ok();
+    }
+
+    @ApiOperation(value = "根据用户获取角色数据")
+    @GetMapping("/toAssign/{userId}")
+    public Result toAssign(@PathVariable Long userId) {
+        Map<String, Object> roleMap = sysRoleService.findRoleByAdminId(userId);
+        return Result.ok(roleMap);
+    }
+
+    @ApiOperation(value = "根据用户分配角色")
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssginRoleVo assginRoleVo) {
+        sysRoleService.doAssign(assginRoleVo);
         return Result.ok();
     }
 }
