@@ -38,3 +38,5 @@ build/
 .DS_Store
 
 .idea
+/service-oa/src/main/resources/application.yml
+/service-oa/src/main/resources/application-dev.yml
