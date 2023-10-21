@@ -3,6 +3,7 @@ package com.atguigu.auth.controller;
 import com.atguigu.auth.service.SysMenuService;
 import com.atguigu.common.result.Result;
 import com.atguigu.model.system.SysMenu;
+import com.atguigu.vo.system.AssginMenuVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,20 @@ public class SysMenuController {
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
         sysMenuService.removeById(id);
+        return Result.ok();
+    }
+
+    @ApiOperation(value = "根据角色获取菜单")
+    @GetMapping("toAssign/{roleId}")
+    public Result toAssign(@PathVariable Long roleId) {
+        List<SysMenu> list = sysMenuService.findSysMenuByRoleId(roleId);
+        return Result.ok(list);
+    }
+
+    @ApiOperation(value = "给角色分配权限")
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssginMenuVo assignMenuVo) {
+        sysMenuService.doAssign(assignMenuVo);
         return Result.ok();
     }
 }

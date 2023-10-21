@@ -19,6 +19,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided </scope>
         </dependency>
+        <!--jwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -31,6 +32,7 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>
